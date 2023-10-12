@@ -1,0 +1,84 @@
+---
+title: "MA [46]15 Homework 4"
+author: "**`[==[`** Xiaojing Yang **`]==]`**"
+format: gfm
+---
+
+
+## Question 1
+
+
+**`[==[`**
+Download the [`hw4_cahmi_data.zip`](https://math.bu.edu/people/sussman/data/hw4_cahmi_data.zip) file and save or copy it to this directory and unzip it. (Make sure it is in a subdirectory named `data`. If you put it is in a different subdirectory you might accidentally commit it.)
+Now modify the `q1` chunk below to create a new dataset called `cahc_df`.
+Check that there are no errors when importing data. 
+
+Check variables `age`, `fam_pov_lev`, `sex`, and `birth_weight_oz` for unusual values or unusually frequent values. (There is no "right" way to do this but provide some output showing that these are or are not present.)
+Quickly comment on anything unusual.
+**`]==]`**
+
+My work is to perform a preliminary analysis of the Childhood and Adolescent Health conditions data downloaded from . 
+This data set is derived from data that was collected in 2016 as part of the National Survey of Children's Health hosted by the [Data Resource Center for Child and Adolescent Health](https://www.childhealthdata.org/browse/archive-prior-year-nsch-and-ns-cshcn-data-resources/state-snapshot).
+I read the file into a data set call `cahc_df`.
+```{r q1}
+suppressPackageStartupMessages(library(tidyverse))
+```
+
+
+## Question 2
+
+**`[==[`**
+Whether we view this data as being "tidy" depends on what we think of as an observation.
+In order to ease the analysis across different health conditions, we want to view an observation as a distinct pair of child and potential health condition.
+Use `pivot_longer` on all columns corresponding to one of the health conditions.
+Specify the `cols` and then also use the parameters `names_pattern = "(.*)_(.*)$", names_to = c(".value", "condition")`.
+(This is a slightly advanced use of `pivot_longer`. Look at the help for `pivot_longer` to better understand this.)
+After you `pivot_longer` you should have 11 columns.
+Save this to a new variable called `cahc_long`.
+
+Verify by outputting empty tibbles that 
+
+* `currently_has` is not `NA` only if `ever_had` is `"Yes"` and 
+* `severity` is not `NA` only if `currently_has` is `"Yes"`.
+**`]==]`**
+
+
+
+## Question 3
+
+
+
+**`[==[`**
+Using the `cahc_long` data set, first count the number of conditions that each child currently has (which could be 0).
+Then for each potential number of conditions, count how many children of each sex have that many conditions.
+Make a bar chart showing the results.
+The number of conditions will be on the x-axis and the number of children will be on the y-axis with the fill indicating the sex.
+Comment on any differences you see between the two sexes.
+**`]==]`**
+
+```{r q3}
+
+```
+
+
+
+## Question 4
+
+**`[==[`**
+Again using the `cahc_long` data set, we're going going to create a table showing the proportion of children from different race categories who have different health conditions.
+First, lump together any of the race categories with fewer than 5% of the total sample into an "Other" category.
+Next, compute the proportion of children for each (remaining) race category that have each health condition.
+Finally, use `pivot_wider` to create a table with rows corresponding to the health conditions and columns corresponding to the different race categories with the entries of the table giving the proportions.
+(The resulting table will have dimensions 15x6.)
+
+Comment on any major differences you observe between the different race categories.
+**`]==]`**
+
+```{r q4}
+tibble(condition = letters[1:4], Purple = runif(4)) |>
+  gt::gt() |> 
+  gt::fmt_percent(-condition) |> 
+  gt::as_raw_html()
+```
+
+
